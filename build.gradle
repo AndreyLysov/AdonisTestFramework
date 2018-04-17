@@ -12,22 +12,56 @@ allure {
     }
 }
 
+configurations {
+    agent
+}
+
 repositories {
     mavenCentral()
     jcenter()
 }
 
 dependencies {
-
-    compile 'commons-io:commons-io:2.5'
+    agent "org.aspectj:aspectjweaver:1.9.0"
+    compile 'commons-io:commons-io:1.4.24.RC3'
     compile 'info.cukes:cucumber-core:1.2.5'
     compile 'info.cukes:cucumber-java:1.2.5'
     compile 'info.cukes:cucumber-junit:1.2.5'
+    testCompile group: 'ru.yandex.qatools.allure', name: 'allure-java-aspects', version: '1.4.24.RC3'
 
+    testCompile group: 'com.github.kirlionik', name: 'allure-cucumber-plugin', version: '1.0.1'
     testCompile 'junit:junit:4.12'
 
     compile 'com.codeborne:selenide:4.11.1'
 }
+
+test.doFirst {
+    jvmArgs "-javaagent:${configurations.agent.singleFile}"
+}
+
+
+/*
+
+ext {
+
+    //Lib version
+    groovyVersion = '2.4.13'
+    seleniumVersion = '3.8.1'
+    httpBuilderVersion = '0.7'
+    log4jVersion = '1.2.17'
+    cucumberVersion = '1.2.5'
+    jacksonVersion = '2.9.0.pr4'
+    junitVersion = '4.12'
+    allureVersion = '1.4.24.RC3'
+    allureCucumberPluginVersion = '1.0.1'
+    aspectjVersion = '1.8.10'
+}
+
+
+*/
+
+
+
 
 
 task chrome(type: Test) {
@@ -45,6 +79,13 @@ task chrome(type: Test) {
 
     useJUnit()
 }
+
+
+/*
+ testCompile group: 'com.github.kirlionik', name: 'allure-cucumber-plugin', version: allureCucumberPluginVersion
+
+ allureCucumberPluginVersion = '1.0.1'
+*/
 
 
 /*
