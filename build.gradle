@@ -52,6 +52,12 @@ task chrome(type: Test) {
     useJUnit()
 }
 
+task generateAllureReport(type: Exec) {
+    commandLine 'allureRes.bat'
+}
+
+test.finalizedBy(generateAllureReport)
+
 /*
 
 group 'AdonisTestFramework'
