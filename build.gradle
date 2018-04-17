@@ -1,4 +1,3 @@
-
 plugins {
     id 'java'
     id 'io.qameta.allure' version "2.5"
@@ -19,8 +18,8 @@ repositories {
 }
 
 dependencies {
+
     compile 'commons-io:commons-io:2.5'
-//    compile 'info.cukes:gherkin:2.12.2'
     compile 'info.cukes:cucumber-core:1.2.5'
     compile 'info.cukes:cucumber-java:1.2.5'
     compile 'info.cukes:cucumber-junit:1.2.5'
@@ -30,9 +29,6 @@ dependencies {
     compile 'com.codeborne:selenide:4.11.1'
 }
 
-test {
-    useJUnit()
-}
 
 task chrome(type: Test) {
 // Properties for run from Jenkins Job
@@ -47,16 +43,15 @@ task chrome(type: Test) {
     testLogging.showStandardStreams = true
     */
 
-
-
     useJUnit()
 }
 
-task generateAllureReport(type: Exec) {
-    commandLine 'allureRes.bat'
-}
+
+/*
+
 
 test.finalizedBy(generateAllureReport)
+*/
 
 /*
 
@@ -98,9 +93,6 @@ dependencies {
 
 }
 
-task generateAllureReport(type: Exec) {
-    commandLine 'allureRes.bat'
-}
 
 
 
