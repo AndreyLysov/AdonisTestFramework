@@ -1,7 +1,7 @@
-package adonis.no.helpers;
+package no.adonis.Helpers;
 
-import adonis.no.helpers.AAP.AAPLoginHelper;
-import adonis.no.helpers.ACP.ACPLoginHelper;
+import no.adonis.Helpers.AAP.AAPLoginHelper;
+import no.adonis.Helpers.ACP.ACPLoginHelper;
 
 public class APP {
     public BaseHelper base;

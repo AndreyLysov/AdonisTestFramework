@@ -1,10 +1,9 @@
-package adonis.no.pages;
+package no.adonis.Pages;
 
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selectors.byXpath;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
 
 
 public class BasePage {
@@ -13,6 +12,8 @@ public class BasePage {
     SelenideElement linkAAP = $(byXpath("//a[contains(text(),'/administrator')]"));
     SelenideElement linkACP = $(byXpath("//a[contains(text(),'/crew')]"));
     SelenideElement linkAEP = $(byXpath("//a[contains(text(),'/employee')]"));
+
+
 
     public void openAAP() {
         linkAAP.click();

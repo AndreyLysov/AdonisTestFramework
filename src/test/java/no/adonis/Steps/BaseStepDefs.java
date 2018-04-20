@@ -1,4 +1,4 @@
-package adonis.no.steps;
+package no.adonis.Steps;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -8,7 +8,10 @@ public class BaseStepDefs extends CommonStep {
 
     @Given("^open base page$")
     public void openStartPage() {
+
+        log.info("Opening base page");
         app.base.openBasePage();
+        log.info("Base page is opened");
     }
 
     @Then("^start page is opened$")

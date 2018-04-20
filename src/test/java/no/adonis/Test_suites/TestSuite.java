@@ -1,4 +1,4 @@
-package adonis.no.test_suites;
+package no.adonis.Test_suites;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
@@ -25,37 +25,11 @@ import java.util.List;
 
         features = {"src/test/resources/features"},
 
-        glue = {"adonis/no/steps"}
-//      plugin = {"io.qameta.allure.cucumberjvm.AllureCucumberJvm"},
-//      tags = "@Test"
+        glue = {"no/adonis/Steps"}
 )
 
 public class TestSuite{
-        @BeforeClass
-        public static void Up() {
-                List<String> properties = new ArrayList<>();
-                properties.add("Enviroment=dev_enviromet");
-                properties.add("test_property=add your own information");
 
-                Path allureResults = null;
-                try {
-                        allureResults = Paths.get(ClassLoader.getSystemResource("").toURI()).getParent();
-                        allureResults = Paths.get(allureResults.toAbsolutePath().toString(), "../allure-results", "environment.properties");
-                        if (!Files.exists(allureResults.getParent())) {
-                                Files.createDirectories(allureResults.getParent());
-                        }
-                        Files.write(allureResults, properties);
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
-
-
-        }
-
-        @AfterClass
-        public static void Down() {
-
-        }
 }
 
 

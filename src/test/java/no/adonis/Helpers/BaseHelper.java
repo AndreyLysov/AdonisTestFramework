@@ -1,6 +1,6 @@
-package adonis.no.helpers;
+package no.adonis.Helpers;
 
-import adonis.no.pages.BasePage;
+import no.adonis.Pages.BasePage;
 
 import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Configuration.baseUrl;

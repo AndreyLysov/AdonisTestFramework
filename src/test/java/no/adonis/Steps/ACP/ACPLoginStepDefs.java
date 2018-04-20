@@ -1,6 +1,6 @@
-package adonis.no.steps.ACP;
+package no.adonis.Steps.ACP;
 
-import adonis.no.steps.CommonStep;
+import no.adonis.Steps.CommonStep;
 import cucumber.api.java.en.And;
 
 public class ACPLoginStepDefs extends CommonStep{

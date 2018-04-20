@@ -1,4 +1,4 @@
-package adonis.no.steps.AAP;
+package no.adonis.Steps.AAP;
 
 public class AAPLoginStepDefs {
 }

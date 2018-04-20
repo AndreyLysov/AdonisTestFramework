@@ -1,6 +1,6 @@
-package adonis.no.helpers.ACP;
+package no.adonis.Helpers.ACP;
 
-import adonis.no.pages.ACP.ACPLoginPage;
+import no.adonis.Pages.ACP.ACPLoginPage;
 
 public class ACPLoginHelper extends ACPLoginPage {
     public void loginAsCrewmember() {

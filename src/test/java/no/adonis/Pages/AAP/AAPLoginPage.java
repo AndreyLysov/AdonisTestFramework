@@ -1,4 +1,4 @@
-package adonis.no.pages.AAP;
+package no.adonis.Pages.AAP;
 
 import com.codeborne.selenide.SelenideElement;
 
