@@ -10,14 +10,14 @@ import java.util.List;
 
 public class ExcelUtils {
 
-    public static List<List<String>> readExcel(String fileName) {
+    public static List<List<String>> readExcel(String fileName, String sheetName) {
         HSSFWorkbook excel = null;
         try {
             excel = new HSSFWorkbook(new FileInputStream("src/test/resources/properties/" + fileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        HSSFSheet sheet = excel.getSheetAt(0);
+        HSSFSheet sheet = excel.getSheet(sheetName);
         List<List<String>> table = new ArrayList<List<String>>();
 
         sheet.forEach(c->{
@@ -27,6 +27,7 @@ public class ExcelUtils {
             });
             table.add(list);
         });
+        table.remove(0);
         return table;
     }
 }

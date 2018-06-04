@@ -1,5 +1,6 @@
 package no.adonis.Pages.ACP;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selectors.byId;
@@ -8,11 +9,11 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class ACPLoginPage {
 
-    protected String title = "CrewPortal Login";
+    protected String title = "Crew Portal Login";
 
-    SelenideElement inputPin = $(byName("tbPin"));
-    SelenideElement inputPasscode = $(byName("tbPasscode"));
-    SelenideElement btnLogin = $(byId("btnLogin"));
+    SelenideElement inputPin = $(byName("pin"));
+    SelenideElement inputPasscode = $(byName("password"));
+    SelenideElement btnLogin = $(byId("btn-submit"));
 
     protected void enterPin(int pin) {
         inputPin.setValue(pin+"");
@@ -24,5 +25,9 @@ public class ACPLoginPage {
 
     protected void clickLogin() {
         btnLogin.click();
+    }
+
+    protected boolean isOnPage(){
+        return Selenide.title().equals(title);
     }
 }

@@ -25,7 +25,8 @@ import java.util.List;
 
         features = {"src/test/resources/features"},
 
-        glue = {"no/adonis/Steps"}
+        glue = {"no/adonis/Steps"},
+        tags = {"~@Example"}
 )
 
 public class TestSuite{

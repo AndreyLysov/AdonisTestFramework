@@ -5,30 +5,25 @@ import no.adonis.Helpers.APP;
 import no.adonis.Timeregistrations.Timeregistration;
 import no.adonis.Timeregistrations.TimeregistrationFactory;
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class CommonStep {
     protected APP app;
-    protected Map<String, Timeregistration> timeregistrations;
-    protected Scenario scenario;
+
+    protected Scenario myScenario;
     protected Logger log;
+
 
     public CommonStep() {
         app = new APP();
-        timeregistrations = TimeregistrationFactory.getTimeregistrations();
+
         log  = Logger.getLogger(this.getClass().getSimpleName());
     }
 
+
+
+    /*
     @Before
     public void before(Scenario scenario) {
         this.scenario = scenario;
@@ -63,4 +58,6 @@ public class CommonStep {
     public static void Down() {
 
     }
+    */
+
 }

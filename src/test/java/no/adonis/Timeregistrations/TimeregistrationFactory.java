@@ -9,9 +9,7 @@ public class TimeregistrationFactory {
 
     public static Map<String, Timeregistration> getTimeregistrations() {
 
-        List<List<String>> table = ExcelUtils.readExcel("timeregistrations.xls");
-
-        table.remove(0);
+        List<List<String>> table = ExcelUtils.readExcel("DataProvider.xls", "TimeRegistrations");
 
         Map<String, Timeregistration> timeregistrations = new HashMap<>();
 
@@ -29,10 +27,8 @@ public class TimeregistrationFactory {
 
         DateTime firstDayOfWeek = new DateTime().withDayOfWeek(1).withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0).withMillisOfSecond(0);
 
-        firstDayOfWeek.plusDays(Integer.parseInt(offset.split(";")[0]))
-                .withHourOfDay(Integer.parseInt(offset.split(";")[1]))
-                .withMinuteOfHour(Integer.parseInt(offset.split(";")[2]));
-        return firstDayOfWeek;
+        return firstDayOfWeek.plusDays(Integer.parseInt(offset.split(";")[0]))
+                .plusHours(Integer.parseInt(offset.split(";")[1]))
+                .plusMinutes(Integer.parseInt(offset.split(";")[2]));
     }
-
 }

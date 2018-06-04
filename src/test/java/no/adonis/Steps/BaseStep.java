@@ -4,19 +4,11 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class BaseStepDefs extends CommonStep {
-
-    @Given("^open base page$")
-    public void openStartPage() {
-
-        log.info("Opening base page");
-        app.base.openBasePage();
-        log.info("Base page is opened");
-    }
+public class BaseStep extends CommonStep {
 
     @Then("^start page is opened$")
     public void startPageIsOpened() {
-       // throw new NotImplementedException();
+
     }
 
     @When("^open AAP$")
