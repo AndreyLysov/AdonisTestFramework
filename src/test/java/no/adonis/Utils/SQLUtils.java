@@ -1,5 +1,7 @@
 package no.adonis.Utils;
 
+import no.adonis.Activity.Activity;
+import no.adonis.Activity.ActivityCode;
 import no.adonis.Common.Constants;
 import no.adonis.PWORG.PWORG;
 import no.adonis.Users.Employee;
@@ -153,11 +155,68 @@ public class SQLUtils {
         return pworgs;
     }
 
+    public static void cleanTimeregistrations(){
+        executeScript("DELETE FROM WEB_CP_TIMECARD");
+    }
 
-    //Need to implement activity and vessel enumerators
-    /*
-    public static void createActivity(){
-        executeScript("INSERT INTO PW001P03 (PIN, CREATEDBY, CREATETIME, SEQUENCENO, CODE, DATEFROM, DATETO, VESSEL, RANK, NUMORGID, PLANNED)\n" +
-                "VALUES (16, 'Test', getdate(), 16, 'ONB', '2018-06-01', null, 10000007, 'BSN', 10000015, 'N')");
-    }*/
+    public static void cleanEmployees(){
+        executeScript("DELETE FROM PW001P01");
+    }
+
+    public static void cleanActivities(){
+        executeScript("DELETE FROM PW001P03");
+    }
+
+    public static void cleanTimesheets(){
+        executeScript("DELETE FROM WEB_CP_TIMESHEETS");
+    }
+
+    public static void cleanDocuments(){
+        executeScript("DELETE FROM WEB_CP_DOCUMENTS");
+    }
+
+    public static void cleanDocumentsWorkflow(){
+        executeScript("DELETE FROM WEB_CP_WORKFLOW");
+    }
+
+    public static void cleanWorktypes(){
+        executeScript("DELETE FROM WEB_CP_WORKTYPES");
+    }
+
+    public static void cleanTimesheetPeriods(){
+        executeScript("DELETE FROM WEB_CP_TIMESHEETS_PERIOD");
+    }
+
+    public static void cleanTimezones(){
+        executeScript("DELETE FROM WEB_CP_TIMEZONES");
+    }
+
+    public static HashMap<String, ActivityCode> getActivityCodes() {
+        HashMap<String, ActivityCode> codes = new HashMap<>();
+        TableModel table = executeScript("SELECT CODE, TEXT FROM PW001C12");
+        for (int i = 1; i < table.getRowCount(); i++){
+            codes.put(String.valueOf(table.getValueAt(i,1)),
+                    new ActivityCode(String.valueOf(table.getValueAt(i,1)),
+                            String.valueOf(table.getValueAt(i,0))));
+        }
+        return codes;
+    }
+
+    public static void createActivity(Activity activity){
+        executeScript("INSERT INTO PW001P03 (PIN, CREATEDBY, CREATETIME, SEQUENCENO, CODE, DATEFROM, DATETO, VESSEL, VESSELNAME, RANK, NUMORGID, PLANNED) " +
+                "VALUES ( " +
+                activity.getEmployee().getPin() + " " +
+                "'ATF', " +
+                "GETDATE(), " +
+                Randomizer.getRandomInt() + ", " +
+                activity.getActivityCode().getName() + ", " +
+                dtfOut.print(activity.getDateFrom()) + ", " +
+                "NULL, " +
+                activity.getVessel().getNumorgId() + ", " +
+                activity.getVessel().getName() + ", " +
+                activity.getPosition().getOrgCode() + ", " +
+                activity.getPosition().getNumorgId() + ", " +
+                        (activity.isPlanned() ? "Y" : "N") + ")"
+        );
+    }
 }

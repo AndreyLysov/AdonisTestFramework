@@ -6,37 +6,52 @@ import org.joda.time.DateTime;
 
 public class Activity {
     private Employee employee;
-    private PWORG position;
-    private String code;
     private DateTime dateFrom;
-    private String planned;
+    private PWORG position;
+    private ActivityCode activityCode;
+    private boolean planned;
+    private PWORG vessel;
 
-    public Activity(Employee employee, PWORG position, String code, DateTime dateFrom, String planned) {
+    public Activity(Employee employee, PWORG position, ActivityCode activityCode, DateTime dateFrom, PWORG vessel, boolean planned) {
 
         this.employee = employee;
         this.position = position;
-        this.code = code;
+        this.activityCode = activityCode;
         this.dateFrom = dateFrom;
         this.planned = planned;
+        this.vessel = vessel;
     }
 
-    public void setEmployee(Employee employee) {
+    public Activity(Employee employee, PWORG position, ActivityCode activityCode, int dateFromOffset, PWORG vessel, boolean planned){
         this.employee = employee;
-    }
-
-    public void setPosition(PWORG position) {
         this.position = position;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setDateFrom(DateTime dateFrom) {
-        this.dateFrom = dateFrom;
-    }
-
-    public void setPlanned(String planned) {
+        this.activityCode = activityCode;
+        this.dateFrom = new DateTime().minusDays(dateFromOffset);
         this.planned = planned;
+        this.vessel = vessel;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public DateTime getDateFrom() {
+        return dateFrom;
+    }
+
+    public PWORG getPosition() {
+        return position;
+    }
+
+    public ActivityCode getActivityCode() {
+        return activityCode;
+    }
+
+    public boolean isPlanned() {
+        return planned;
+    }
+
+    public PWORG getVessel() {
+        return vessel;
     }
 }

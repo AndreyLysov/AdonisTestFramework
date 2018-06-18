@@ -1,6 +1,7 @@
 package no.adonis.Steps;
 
 import cucumber.api.Scenario;
+import no.adonis.Activity.ActivityCode;
 import no.adonis.Helpers.APP;
 import no.adonis.PWORG.PWORG;
 import no.adonis.Users.Employee;
@@ -21,6 +22,7 @@ public class CommonStep {
     protected Map<String, PWORG> vessels;
     protected Map<String, PWORG> departments;
     protected Map<String, PWORG> positions;
+    protected Map<String, ActivityCode> activityCodes;
 
     public CommonStep() {
         app = new APP();
@@ -39,6 +41,7 @@ public class CommonStep {
                 .stream()
                 .filter(s -> s.getValue().getOrgType() == 5)
                 .collect(Collectors.toMap(s -> s.getKey(), s -> s.getValue()));
+        activityCodes = SQLUtils.getActivityCodes();
     }
 
 
