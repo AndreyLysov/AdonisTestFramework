@@ -1,41 +1,36 @@
 package no.adonis.Timeregistrations;
 
+import no.adonis.Timezones.Timezone;
+import no.adonis.Worktypes.Worktype;
 import org.joda.time.DateTime;
-
-import java.util.Date;
+import org.joda.time.Hours;
+import org.joda.time.Minutes;
 
 public class Timeregistration {
-    private int pin;
     private DateTime timeIn;
     private DateTime timeOut;
-    private int timeZoneOffset;
-    private String worktype;
+    private Timezone timezone;
+    private Worktype worktype;
 
-
-    public Timeregistration(DateTime timeIn, DateTime timeOut, String worktype) {
-        setTimeIn(timeIn);
-        setTimeOut(timeOut);
-        setWorktype(worktype);
+    @Override
+    public String toString() {
+        return timeIn + " - " + timeOut + " " +
+                Hours.hoursBetween(timeIn, timeOut) + ":" +
+                getDifferenceBetweenDateTimes(timeIn, timeOut) + " hrs; " +
+                worktype.getName() + "; " + timezone.toStringInHours();
     }
 
-    public void setTimeIn(DateTime timeIn) {
+    public String getDifferenceBetweenDateTimes(DateTime timein, DateTime timeout) {
+        Minutes difference = Minutes.minutesBetween(timein, timeout);
+        int hours = difference.toStandardHours().getHours();
+        return hours + ":" + (difference.getMinutes()%hours);
+    }
+
+    public Timeregistration(int pin, DateTime timeIn, DateTime timeOut, Timezone timezone, Worktype worktype) {
         this.timeIn = timeIn;
-    }
-
-    public void setTimeOut(DateTime timeOut) {
         this.timeOut = timeOut;
-    }
-
-    public void setTimeZoneOffset(int timeZoneOffset) {
-        this.timeZoneOffset = timeZoneOffset;
-    }
-
-    public void setWorktype(String worktype) {
+        this.timezone = timezone;
         this.worktype = worktype;
-    }
-
-    public int getPin() {
-        return pin;
     }
 
     public DateTime getTimeIn() {
@@ -46,11 +41,11 @@ public class Timeregistration {
         return timeOut;
     }
 
-    public int getTimeZoneOffset() {
-        return timeZoneOffset;
+    public Timezone getTimeZoneOffset() {
+        return timezone;
     }
 
-    public String getWorktype() {
+    public Worktype getWorktype() {
         return worktype;
     }
 }

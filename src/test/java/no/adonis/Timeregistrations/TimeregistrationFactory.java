@@ -6,13 +6,16 @@ import org.joda.time.DateTime;
 import java.util.*;
 
 public class TimeregistrationFactory {
+/*
 
     public static Map<String, Timeregistration> getTimeregistrations() {
 
-        List<List<String>> table = ExcelUtils.readExcel("DataProvider.xls", "TimeRegistrations");
+        List<List<String>> table = ExcelUtils.readExcel("TimeRegistrations");
 
         Map<String, Timeregistration> timeregistrations = new HashMap<>();
 
+        //Need to think how it will work
+        //left it for now
         table.stream().forEach(s -> timeregistrations.put(s.get(0), new Timeregistration(
                 getCorrectDate(s.get(1)),
                 getCorrectDate(s.get(2)),
@@ -20,6 +23,7 @@ public class TimeregistrationFactory {
 
         return timeregistrations;
     }
+*/
 
 
 

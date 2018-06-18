@@ -2,23 +2,43 @@ package no.adonis.Steps;
 
 import cucumber.api.Scenario;
 import no.adonis.Helpers.APP;
-import no.adonis.Timeregistrations.Timeregistration;
-import no.adonis.Timeregistrations.TimeregistrationFactory;
+import no.adonis.PWORG.PWORG;
+import no.adonis.Users.Employee;
+import no.adonis.Users.EmployeeFactory;
+import no.adonis.Utils.SQLUtils;
 import org.apache.log4j.Logger;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CommonStep {
     protected APP app;
 
     protected Scenario myScenario;
     protected Logger log;
-
+    protected Map<String, Employee> employees;
+    private Map<String, PWORG> pworgs;
+    protected Map<String, PWORG> vessels;
+    protected Map<String, PWORG> departments;
+    protected Map<String, PWORG> positions;
 
     public CommonStep() {
         app = new APP();
-
-        log  = Logger.getLogger(this.getClass().getSimpleName());
+        log = Logger.getLogger(this.getClass().getSimpleName());
+        employees = EmployeeFactory.getEmployees();
+        pworgs = SQLUtils.getPWORGS();
+        vessels = pworgs.entrySet()
+                .stream()
+                .filter(s -> s.getValue().getOrgType() == 3)
+                .collect(Collectors.toMap(s -> s.getKey(), s -> s.getValue()));
+        departments = pworgs.entrySet()
+                .stream()
+                .filter(s -> s.getValue().getOrgType() == 4)
+                .collect(Collectors.toMap(s -> s.getKey(), s -> s.getValue()));
+        positions = pworgs.entrySet()
+                .stream()
+                .filter(s -> s.getValue().getOrgType() == 5)
+                .collect(Collectors.toMap(s -> s.getKey(), s -> s.getValue()));
     }
 
 
@@ -61,3 +81,39 @@ public class CommonStep {
     */
 
 }
+
+
+
+
+
+
+/*
+
+Given "<Employee>" is created
+    And "<Employee>" has onboard activity on "<PWORG>" vessel on "<Position>" position
+    And "<PWORG>" is on "+0" timezone from "previous year"
+    And period for "current" month is created
+    And worktype "Work" is exist on the "<PWORG>" vessel
+    |IsWork|
+    And "<Position>" linked to "User Group" linked to "Roles" with access to all modules
+    And "<Position>" is set as "subordinator" in COA settings
+    And "ACP" is opened
+    And "<Employee>" is logged in
+    And "My Timesheet" page is opened
+
+  Scenario: Add time registration
+    When create "time registration"
+    Then "time registration" is displayed
+
+  Examples:
+  |PWORG|Position|Employee|
+  |Vessel1|Seaman|Bart Simpson|
+
+*/
+
+
+/*
+
+
+
+ */

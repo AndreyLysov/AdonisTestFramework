@@ -1,6 +1,7 @@
 Feature: As a Crew Member I want to register and adjust my work time so I can I can account to a manager.
 
-  Background: My Timesheets current page is opened
+  Background:
+    Given My Timesheets current page is opened
 
   Scenario: Add new time registration
     When crew member add time registration

@@ -10,10 +10,12 @@ import java.util.List;
 
 public class ExcelUtils {
 
-    public static List<List<String>> readExcel(String fileName, String sheetName) {
+    private static final String EXCEL = "src/test/resources/properties/DataProvider.xls";
+
+    public static List<List<String>> readExcel(String sheetName) {
         HSSFWorkbook excel = null;
         try {
-            excel = new HSSFWorkbook(new FileInputStream("src/test/resources/properties/" + fileName));
+            excel = new HSSFWorkbook(new FileInputStream(EXCEL));
         } catch (IOException e) {
             e.printStackTrace();
         }

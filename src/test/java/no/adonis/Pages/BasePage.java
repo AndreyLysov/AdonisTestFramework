@@ -5,6 +5,8 @@ import com.codeborne.selenide.WebDriverRunner;
 import no.adonis.Steps.CommonStep;
 import no.adonis.Timeregistrations.Timeregistration;
 import no.adonis.Timeregistrations.TimeregistrationFactory;
+import no.adonis.Users.Employee;
+import no.adonis.Users.EmployeeFactory;
 import org.apache.log4j.Logger;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -21,13 +23,12 @@ public class BasePage {
     protected String title = "Select Client";
     protected Logger log;
     protected Actions actions;
-    protected Map<String, Timeregistration> timeregistrations;
+//    protected Map<String, Timeregistration> timeregistrations;
     protected DateTimeFormatter dtfOut;
-
     public BasePage(){
         log  = Logger.getLogger(this.getClass().getSimpleName());
         actions = new Actions(WebDriverRunner.getWebDriver());
-        timeregistrations = TimeregistrationFactory.getTimeregistrations();
+//        timeregistrations = TimeregistrationFactory.getTimeregistrations();
         dtfOut = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
     }
 

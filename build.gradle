@@ -90,6 +90,12 @@ dependencies {
     //mssql connector
     // https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc
     testCompile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '6.4.0.jre8'
+
+    //libraries for REST Utils using Groovy
+    // https://mvnrepository.com/artifact/org.codehaus.groovy.modules.http-builder/http-builder
+    compile group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.7.1'
+    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-json
+    compile group: 'org.codehaus.groovy', name: 'groovy-json', version: '2.0.0-rc-4'
 }
 
 test.doFirst {

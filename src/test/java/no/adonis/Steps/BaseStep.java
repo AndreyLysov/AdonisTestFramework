@@ -1,30 +1,25 @@
 package no.adonis.Steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import no.adonis.Utils.SQLUtils;
 
 public class BaseStep extends CommonStep {
 
-    @Then("^start page is opened$")
-    public void startPageIsOpened() {
-
+    @Given("^\"([^\"]*)\" is opened$")
+    public void isOpened(String portal) {
+        if (portal.equals("AAP"))
+            app.base.openAAP();
+        else if (portal.equals("ACP"))
+            app.base.openACP();
+        else
+            app.base.openAEP();
     }
 
-    @When("^open AAP$")
-    public void openAAP() {
-        app.base.openAAP();
+    @Given("^\"([^\"]*)\" is created$")
+    public void isCreated(String employee) {
+        SQLUtils.createEmployee(employees.get(employee));
     }
-
-    @When("^open ACP$")
-    public void openACP() {
-        app.base.openACP();
-    }
-
-    @When("^open AEP$")
-    public void openAEP() {
-        app.base.openAEP();
-    }
-
-
 }

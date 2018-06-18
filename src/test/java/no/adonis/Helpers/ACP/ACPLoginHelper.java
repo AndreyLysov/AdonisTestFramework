@@ -7,7 +7,8 @@ public class ACPLoginHelper extends ACPLoginPage {
 
     //Need to implement user factory and implement loggining here
 
-    public void loginAsCrewmember() {
+    public void loginAs(String role) {
+        //Need to implement loggining in for valid users
         enterPin(30941);
         enterPasscode(1);
         clickLogin();
