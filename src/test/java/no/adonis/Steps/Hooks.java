@@ -25,6 +25,11 @@ public class Hooks extends CommonStep {
 
             prop.setProperty("date", SQLUtils.getDateTimeFormat());
 
+            SQLUtils.cleanTimezones();
+            SQLUtils.cleanTimesheetPeriods();
+            SQLUtils.cleanActivities();
+            SQLUtils.cleanEmployees();
+
             /*
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MMMMM.dd GGG hh:mm aaa", Locale.getDefault());
             Date date = new Date();
@@ -43,7 +48,7 @@ public class Hooks extends CommonStep {
             } catch (IOException e) {
                 e.printStackTrace();
             }*/
-            flag = true;
+//            flag = true;
         }
 
         myScenario = scenario;

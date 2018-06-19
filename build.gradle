@@ -109,7 +109,7 @@ test.doFirst {
 task chrome(type: Test) {
 // Properties for run from Jenkins Job
     systemProperty "browser", "chrome"
-    systemProperty "selenide.baseUrl", "http://192.168.1.202/APP_TestUpgrade/"
+    systemProperty "selenide.baseUrl", "http://192.168.1.202/APP_AdonisAutoTest/"
     systemProperty "Country", System.getProperty("Country") != null ? System.getProperty("Country") : defaultCountry
     systemProperty "Language", System.getProperty("Language") != null ? System.getProperty("Language") : defaultLanguage
     /*

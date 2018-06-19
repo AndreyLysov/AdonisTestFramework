@@ -5,17 +5,17 @@ import org.joda.time.DateTime;
 public class Employee {
     private int pin;
     private String firstName;
-    private String lasttName;
+    private String lastName;
     private DateTime birthDate;
     private DateTime employeeStartDate;
     private DateTime employeeEndDate;
     private String email;
 
-    public Employee(int pin, String firstName, String lasttName, DateTime birthDate,
+    public Employee(int pin, String firstName, String lastName, DateTime birthDate,
                     DateTime employeeStartDate, DateTime employeeEndDate, String email) {
         this.pin = pin;
         this.firstName = firstName;
-        this.lasttName = lasttName;
+        this.lastName = lastName;
         this.birthDate = birthDate;
         this.employeeStartDate = employeeStartDate;
         this.employeeEndDate = employeeEndDate;
@@ -30,8 +30,8 @@ public class Employee {
         return firstName;
     }
 
-    public String getLasttName() {
-        return lasttName;
+    public String getLastName() {
+        return lastName;
     }
 
     public DateTime getBirthDate() {
