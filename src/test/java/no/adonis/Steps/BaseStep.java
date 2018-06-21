@@ -1,11 +1,14 @@
 package no.adonis.Steps;
 
+import cucumber.api.DataTable;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import no.adonis.Activity.Activity;
 import no.adonis.TimesheetPeriod.TimesheetPeriod;
 import no.adonis.Timezones.Timezone;
+import no.adonis.Users.Employee;
+import no.adonis.Users.EmployeeFactory;
 import no.adonis.Utils.SQLUtils;
 
 public class BaseStep extends CommonStep {
@@ -21,8 +24,9 @@ public class BaseStep extends CommonStep {
     }
 
     @Given("^\"([^\"]*)\" is created$")
-    public void isCreated(String employee) {
-        SQLUtils.createEmployee(employees.get(employee));
+    public void isCreated(String name) {
+        employees.put(name, EmployeeFactory.getEmployee(name));
+        SQLUtils.createEmployee(employees.get(name));
     }
 
     @And("^\"([^\"]*)\" has current \"([^\"]*)\" activity on \"([^\"]*)\" vessel started (\\d+) days ago on \"([^\"]*)\" position$")
@@ -55,5 +59,11 @@ public class BaseStep extends CommonStep {
                         dateToOffset,
                         vessels.get(vessel))
         );
+    }
+
+
+    @And("^worktype \"([^\"]*)\" is exist on the \"([^\"]*)\" vessel with options$")
+    public void worktypeIsExistOnTheVesselWithOptions(String worktype, String vessel, DataTable options) {
+
     }
 }

@@ -10,7 +10,7 @@ import java.util.Map;
 public class EmployeeFactory {
 
 
-    public static Map<String, Employee> getEmployees() {
+    private static Map<String, Employee> getEmployees() {
         List<List<String>> table = ExcelUtils.readExcel("Employees");
 
         Map<String, Employee> employees = new HashMap<>();
@@ -24,6 +24,11 @@ public class EmployeeFactory {
                 DateTime.parse(s.get(5)),
                 s.get(6))));
         return employees;
+    }
+
+    public static Employee getEmployee(String name){
+        Map<String, Employee> employees = getEmployees();
+        return employees.get(name);
     }
 }
 

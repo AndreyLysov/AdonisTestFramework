@@ -1,5 +1,6 @@
 package no.adonis.Utils;
 
+import com.sun.corba.se.spi.orbutil.threadpool.Work;
 import no.adonis.Activity.Activity;
 import no.adonis.Activity.ActivityCode;
 import no.adonis.Common.Constants;
@@ -119,9 +120,10 @@ public class SQLUtils {
             return String.valueOf(result.getValueAt(0, 0));
     }
 
+    /*
     public static HashMap<String, Worktype> getWorktypes() {
         HashMap<String, Worktype> worktypes = new HashMap<>();
-        TableModel table = getFromDB("select NAME, SEQUENCENO, NUMORGID, IS_WORK, IS_DRILL, " +
+        TableModel table = getFromDB("select NAME, NUMORGID, IS_WORK, IS_DRILL, " +
                 "IS_REST, IS_MEAL, IS_SICK, IS_SIDE_DUTY, IS_WORKANDREST, " +
                 "HideInTimeClock, HideInManual, NonOT from WEB_CP_WORKTYPES");
         for (int i = 1; i < table.getRowCount(); i++) {
@@ -129,7 +131,7 @@ public class SQLUtils {
                     new Worktype(
                             String.valueOf(table.getValueAt(i, 0)),
                             Integer.getInteger(String.valueOf(table.getValueAt(i, 1))),
-                            Integer.getInteger(String.valueOf(table.getValueAt(i, 2))),
+                            Boolean.valueOf(String.valueOf(table.getValueAt(i, 2))),
                             Boolean.valueOf(String.valueOf(table.getValueAt(i, 3))),
                             Boolean.valueOf(String.valueOf(table.getValueAt(i, 4))),
                             Boolean.valueOf(String.valueOf(table.getValueAt(i, 5))),
@@ -138,13 +140,13 @@ public class SQLUtils {
                             Boolean.valueOf(String.valueOf(table.getValueAt(i, 8))),
                             Boolean.valueOf(String.valueOf(table.getValueAt(i, 9))),
                             Boolean.valueOf(String.valueOf(table.getValueAt(i, 10))),
-                            Boolean.valueOf(String.valueOf(table.getValueAt(i, 11))),
-                            Boolean.valueOf(String.valueOf(table.getValueAt(i, 12)))
+                            Boolean.valueOf(String.valueOf(table.getValueAt(i, 11)))
                     )
             );
         }
         return worktypes;
     }
+    */
 
     public static void createEmployee(Employee employee) {
         executeScript("INSERT INTO PW001P01 (FIRSTNAME, LASTNAME, PIN, EMPLOYMENTSTARTDATE, BIRTHDATE, " +
@@ -251,7 +253,7 @@ public class SQLUtils {
         );
     }
 
-    public static void createTimezone(Timezone timezone){
+    public static void createTimezone(Timezone timezone) {
         executeScript("INSERT INTO WEB_CP_TIMEZONES (ID, NUMORGID, CHANGE_DATE, TIMEZONE, CHANGE_DATE_UTC) " +
                 "VALUES (" +
                 Randomizer.getRandomInt() + ", " +
@@ -261,7 +263,7 @@ public class SQLUtils {
                 dtfOut.print(timezone.getChangeDateUTC()) + "')");
     }
 
-    public static void createTimesheetPeriod(TimesheetPeriod tsPeriod){
+    public static void createTimesheetPeriod(TimesheetPeriod tsPeriod) {
         executeScript("INSERT INTO WEB_CP_TIMESHEETS_PERIOD (SEQUENCENO, PERIOD, NAME, PERIOD_FROM, PERIOD_TO, NUMORGID) " +
                 "VALUES (" +
                 Randomizer.getRandomInt() + ", " +
@@ -270,5 +272,25 @@ public class SQLUtils {
                 dfOut.print(tsPeriod.getDateFrom()) + "', '" +
                 dfOut.print(tsPeriod.getDateTo()) + "', " +
                 tsPeriod.getVessel().getNumorgId() + ")");
+    }
+
+    public static void createWorktype(Worktype worktype) {
+        executeScript("INSERT INTO WEB_CP_WORKTYPES (SEQUENCENO, CODE, NAME, NUMORGID, IS_WORK, IS_DRILL, IS_REST, " +
+                "IS_MEAL, IS_SIDE_DUTY, IS_SICK, IS_WORKANDREST, HideInTimeClock, HideInManual, NonOT) " +
+                "VALUES (" +
+                Randomizer.getRandomInt() + ", '" +
+                worktype.getCode() + "', '" +
+                worktype.getName() + "', " +
+                worktype.getVessel().getNumorgId() + ", '" +
+                (worktype.isWork() ? "Y" : "N") + "', '" +
+                (worktype.isDrill() ? "Y" : "N") + "', '" +
+                (worktype.isRest() ? "Y" : "N") + "', '" +
+                (worktype.isMeal() ? "Y" : "N") + "', '" +
+                (worktype.isSideDuty() ? "Y" : "N") + "', '" +
+                (worktype.isSick() ? "Y" : "N") + "', '" +
+                (worktype.isWorkAndRest() ? "Y" : "N") + "', " +
+                (worktype.isHideInTimeclock() ? 1 : 0) + ", " +
+                (worktype.isHideInManual() ? 1 : 0) + ", " +
+                (worktype.isNonOT() ? 1 : 0) + ")");
     }
 }

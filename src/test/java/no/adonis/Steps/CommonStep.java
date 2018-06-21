@@ -27,7 +27,6 @@ public class CommonStep {
     public CommonStep() {
         app = new APP();
         log = Logger.getLogger(this.getClass().getSimpleName());
-        employees = EmployeeFactory.getEmployees();
         pworgs = SQLUtils.getPWORGS();
         vessels = pworgs.entrySet()
                 .stream()

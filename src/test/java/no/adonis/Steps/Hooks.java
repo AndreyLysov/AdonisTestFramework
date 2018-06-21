@@ -29,6 +29,7 @@ public class Hooks extends CommonStep {
             SQLUtils.cleanTimesheetPeriods();
             SQLUtils.cleanActivities();
             SQLUtils.cleanEmployees();
+            employees.clear();
 
             /*
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MMMMM.dd GGG hh:mm aaa", Locale.getDefault());
