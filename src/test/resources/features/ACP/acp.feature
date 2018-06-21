@@ -9,12 +9,11 @@ Feature: As a Crew Member I want to register and adjust my work time so I can I 
     And "<Employee>" has current "<Activity code>" activity on "<Vessel>" vessel started 20 days ago on "<Position>" position
     And "<Vessel>" is on "-1" timezone from "2018-01-01"
     And period started 10 days backward 20 days forward is created on "<Vessel>" vessel
-    And worktype "Work" is exist on the "<Vessel>" vessel with options
-      | IsWork | IsWorkAndRest |
+    And worktype "Work" is exist on the "<Vessel>" vessel with options "<Options>"
 
     Examples:
-      | Vessel      | Position | Employee     | Activity code |
-      | Black Pearl | Seaman   | Bart Simpson | Onboard       |
+      | Vessel      | Position | Employee     | Activity code | Options              |
+      | Black Pearl | Seaman   | Bart Simpson | Onboard       | isWork;isWorkAndRest |
 
 
 #    And worktype "Work" is exist on the "<Vessel>" vessel with options

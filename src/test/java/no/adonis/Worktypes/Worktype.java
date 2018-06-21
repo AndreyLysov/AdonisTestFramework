@@ -17,6 +17,13 @@ public class Worktype {
     private boolean hideInManual;
     private boolean nonOT;
 
+    public Worktype(String name, PWORG vessel) {
+        this.code = name.length() > 10 ? name.substring(0, 9) : name;
+        this.name = name;
+        this.vessel = vessel;
+    }
+
+    //useless constructor need to think how to work without it
     public Worktype(String code, String name, PWORG vessel, boolean isWork, boolean isDrill, boolean isRest, boolean isMeal,
                     boolean isSideDuty, boolean isSick, boolean isWorkAndRest, boolean hideInTimeclock,
                     boolean hideInManual, boolean nonOT) {
@@ -32,6 +39,46 @@ public class Worktype {
         this.isWorkAndRest = isWorkAndRest;
         this.hideInTimeclock = hideInTimeclock;
         this.hideInManual = hideInManual;
+        this.nonOT = nonOT;
+    }
+
+    public void setWork(boolean work) {
+        isWork = work;
+    }
+
+    public void setDrill(boolean drill) {
+        isDrill = drill;
+    }
+
+    public void setRest(boolean rest) {
+        isRest = rest;
+    }
+
+    public void setMeal(boolean meal) {
+        isMeal = meal;
+    }
+
+    public void setSideDuty(boolean sideDuty) {
+        isSideDuty = sideDuty;
+    }
+
+    public void setSick(boolean sick) {
+        isSick = sick;
+    }
+
+    public void setWorkAndRest(boolean workAndRest) {
+        isWorkAndRest = workAndRest;
+    }
+
+    public void setHideInTimeclock(boolean hideInTimeclock) {
+        this.hideInTimeclock = hideInTimeclock;
+    }
+
+    public void setHideInManual(boolean hideInManual) {
+        this.hideInManual = hideInManual;
+    }
+
+    public void setNonOT(boolean nonOT) {
         this.nonOT = nonOT;
     }
 

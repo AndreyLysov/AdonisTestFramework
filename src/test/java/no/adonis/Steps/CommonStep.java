@@ -6,6 +6,7 @@ import no.adonis.Helpers.APP;
 import no.adonis.PWORG.PWORG;
 import no.adonis.Users.Employee;
 import no.adonis.Users.EmployeeFactory;
+import no.adonis.Utils.ExcelUtils;
 import no.adonis.Utils.SQLUtils;
 import org.apache.log4j.Logger;
 
@@ -26,6 +27,7 @@ public class CommonStep {
 
     public CommonStep() {
         app = new APP();
+        employees = EmployeeFactory.getEmployees();
         log = Logger.getLogger(this.getClass().getSimpleName());
         pworgs = SQLUtils.getPWORGS();
         vessels = pworgs.entrySet()

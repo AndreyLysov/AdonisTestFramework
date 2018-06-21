@@ -10,7 +10,7 @@ import java.util.Map;
 public class EmployeeFactory {
 
 
-    private static Map<String, Employee> getEmployees() {
+    public static Map<String, Employee> getEmployees() {
         List<List<String>> table = ExcelUtils.readExcel("Employees");
 
         Map<String, Employee> employees = new HashMap<>();
