@@ -4,12 +4,14 @@ import cucumber.api.Scenario;
 import no.adonis.Activity.ActivityCode;
 import no.adonis.Helpers.APP;
 import no.adonis.PWORG.PWORG;
+import no.adonis.Role.Role;
 import no.adonis.Users.Employee;
 import no.adonis.Users.EmployeeFactory;
 import no.adonis.Utils.ExcelUtils;
 import no.adonis.Utils.SQLUtils;
 import org.apache.log4j.Logger;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -24,9 +26,11 @@ public class CommonStep {
     protected Map<String, PWORG> departments;
     protected Map<String, PWORG> positions;
     protected Map<String, ActivityCode> activityCodes;
+    protected Map<String, Role> roles;
 
     public CommonStep() {
         app = new APP();
+        roles = new HashMap<>();
         employees = EmployeeFactory.getEmployees();
         log = Logger.getLogger(this.getClass().getSimpleName());
         pworgs = SQLUtils.getPWORGS();

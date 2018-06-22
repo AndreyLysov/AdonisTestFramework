@@ -1,14 +1,13 @@
 package no.adonis.Steps;
 
-import cucumber.api.DataTable;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import no.adonis.Activity.Activity;
+import no.adonis.Role.Role;
 import no.adonis.TimesheetPeriod.TimesheetPeriod;
 import no.adonis.Timezones.Timezone;
 import no.adonis.Users.Employee;
-import no.adonis.Users.EmployeeFactory;
 import no.adonis.Utils.SQLUtils;
 import no.adonis.Worktypes.WorktypesFactory;
 
@@ -87,10 +86,10 @@ public class BaseStep extends CommonStep {
                         dateToOffset,
                         vessels.get(vessel))
         );
-        log.info("The period was inserted");
+        log.info("The period was inserted\n");
     }
 
-    @And("^worktype \"([^\"]*)\" is exist on the \"([^\"]*)\" vessel with options \"([^\"]*)\"$")
+    @And("^worktype \"([^\"]*)\" is exist on the \"([^\"]*)\" vessel with \"([^\"]*)\" options$")
     public void worktypeIsExistOnTheVesselWithOptions(String worktype, String vessel, String options) {
         log.info(String.format("Inserting into database worktype with parameters:\n" +
                         "code: %s\n" +
@@ -98,7 +97,27 @@ public class BaseStep extends CommonStep {
                         "on the %s vessel\n" +
                         "with options: %s",
                 worktype, worktype, vessel, options));
+
         SQLUtils.createWorktype(WorktypesFactory.composeWorktype(worktype, vessels.get(vessel), options));
+
         log.info("The worktype was inserted\n");
     }
+
+    @And("^\"([^\"]*)\" role with access to \"([^\"]*)\" modules is created$")
+    public void roleWithAccessToModulesIsCreated(String roleName, String modules) {
+        log.info(String.format("Inserting into database role with parameters\n" +
+                "role name: %s\n" +
+                "with access to modules: %s",
+                roleName, modules));
+
+        Role role = new Role(roleName);
+        roles.put(roleName, role);
+        SQLUtils.createRole(role);
+
+        SQLUtils.addAccessToModules(role, modules);
+
+        log.info("The role was inserted\n");
+    }
+
+
 }

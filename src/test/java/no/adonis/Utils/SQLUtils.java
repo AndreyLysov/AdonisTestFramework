@@ -1,10 +1,10 @@
 package no.adonis.Utils;
 
-import com.sun.corba.se.spi.orbutil.threadpool.Work;
 import no.adonis.Activity.Activity;
 import no.adonis.Activity.ActivityCode;
 import no.adonis.Common.Constants;
 import no.adonis.PWORG.PWORG;
+import no.adonis.Role.Role;
 import no.adonis.TimesheetPeriod.TimesheetPeriod;
 import no.adonis.Timezones.Timezone;
 import no.adonis.Users.Employee;
@@ -16,7 +16,9 @@ import org.joda.time.format.DateTimeFormatter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.StringJoiner;
 import java.util.Vector;
 
 public class SQLUtils {
@@ -292,5 +294,42 @@ public class SQLUtils {
                 (worktype.isHideInTimeclock() ? 1 : 0) + ", " +
                 (worktype.isHideInManual() ? 1 : 0) + ", " +
                 (worktype.isNonOT() ? 1 : 0) + ")");
+    }
+
+    public static void createRole(Role role) {
+        executeScript("INSERT INTO WEB_CP_ROLES (ROLE_ID, ROLE) VALUES (" +
+                role.getSequenceno() + ", '" +
+                role.getName() + "')");
+    }
+
+    public static void cleanRoles() {
+        executeScript("DELETE FROM WEB_CP_ROLES");
+    }
+
+    public static void addAccessToModules(Role role, String modules) {
+        StringJoiner joiner = new StringJoiner("','", "'", "'");
+        for (String module : modules.split(";")) {
+            joiner.add(module);
+        }
+
+        TableModel table = getFromDB("SELECT ELEMENT_ID FROM WEB_CP_ELEMENTS WHERE CAPTION IN (" + joiner + ")");
+
+        ArrayList<Integer> moduleNumbers = new ArrayList<>();
+        for (int i = 0; i < table.getRowCount(); i++){
+            moduleNumbers.add(Integer.parseInt(String.valueOf(table.getValueAt(i,0))));
+        }
+
+        for (Integer module :
+                moduleNumbers) {
+            executeScript("INSERT INTO WEB_CP_ROLE_ACCESS (ROLE_ID, ELEMENT_ID, MODIFY) " +
+                    "VALUES (" +
+                    role.getSequenceno() + ", " +
+                    module + ", " +
+                    "'W')");
+        }
+    }
+
+    public static void cleanRoleAccess(){
+        executeScript("DELETE FROM WEB_CP_ROLE_ACCESS");
     }
 }

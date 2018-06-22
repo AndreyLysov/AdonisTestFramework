@@ -25,11 +25,14 @@ public class Hooks extends CommonStep {
 
             prop.setProperty("date", SQLUtils.getDateTimeFormat());
 
+            SQLUtils.cleanRoleAccess();
+            SQLUtils.cleanRoles();
             SQLUtils.cleanTimezones();
             SQLUtils.cleanTimesheetPeriods();
             SQLUtils.cleanActivities();
             SQLUtils.cleanEmployees();
             SQLUtils.cleanWorktypes();
+
 
             /*
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MMMMM.dd GGG hh:mm aaa", Locale.getDefault());
