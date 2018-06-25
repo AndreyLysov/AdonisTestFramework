@@ -129,4 +129,23 @@ public class Worktype {
     public boolean isNonOT() {
         return nonOT;
     }
+
+    @Override
+    public String toString() {
+        return "Worktype{" +
+                "code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", vessel=" + vessel +
+                ", isWork=" + isWork +
+                ", isDrill=" + isDrill +
+                ", isRest=" + isRest +
+                ", isMeal=" + isMeal +
+                ", isSideDuty=" + isSideDuty +
+                ", isSick=" + isSick +
+                ", isWorkAndRest=" + isWorkAndRest +
+                ", hideInTimeclock=" + hideInTimeclock +
+                ", hideInManual=" + hideInManual +
+                ", nonOT=" + nonOT +
+                '}';
+    }
 }

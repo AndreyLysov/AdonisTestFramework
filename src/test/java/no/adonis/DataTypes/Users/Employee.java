@@ -49,6 +49,19 @@ public class Employee {
     public String getEmail() {
         return email;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "pin=" + pin +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthDate=" + birthDate +
+                ", employeeStartDate=" + employeeStartDate +
+                ", employeeEndDate=" + employeeEndDate +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
 
 

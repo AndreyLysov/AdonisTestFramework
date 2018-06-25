@@ -17,4 +17,12 @@ public class Role {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "sequenceno=" + sequenceno +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

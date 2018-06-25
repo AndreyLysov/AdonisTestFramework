@@ -22,8 +22,8 @@ public class ACPCurrentTimesheetSteps extends CommonStep {
         log.info("Time registration is displayed");
     }
 
-    @When("^create time registration with timein (\\d+) hours and time out (\\d+) hours and \"([^\"]*)\" work type for yesterday$")
-    public void createTimeRegistrationWithTimeinHoursAndTimeOutHoursAndWorkTypeForYesterday(int timein, int timeout, String worktype) {
+    @When("^create time registration with timein (\\d+) hours and time out (\\d+) hours and \"([^\"]*)\" work type in \"([^\"]*)\" timezone for yesterday$")
+    public void createTimeRegistrationWithTimeinHoursAndTimeOutHoursAndWorkTypeInTimezoneForYesterday(int timein, int timeout, String worktype, String timezone) {
 
         DateTime yesterday = new DateTime().minusDays(1);
 
@@ -32,6 +32,7 @@ public class ACPCurrentTimesheetSteps extends CommonStep {
         Timeregistration tr = new Timeregistration(
                 yesterday.withHourOfDay(timein).withMinuteOfHour(0),
                 yesterday.withHourOfDay(timeout).withMinuteOfHour(0),
+                timezones.get(timezone),
                 worktypes.get(worktype));
 
         app.acpCurrentTS.createTimeregistration(tr);

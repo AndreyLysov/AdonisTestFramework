@@ -16,7 +16,7 @@ Feature: As a Crew Member I want to register and adjust my work time so I can I 
     And "ACP" is opened
     And "Bart Simpson" is logged in
     And "My Timesheet" page is opened
-    When create time registration with timein 10 hours and time out 16 hours and "Work" work type for yesterday
+    When create time registration with timein 10 hours and time out 16 hours and "Work" work type in "-1" timezone for yesterday
     Then time registration with time in 10 hours, time out 16 hours, "Work" work type and "-1" timezone for yesterday is displayed
 
 

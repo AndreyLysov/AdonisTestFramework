@@ -54,4 +54,16 @@ public class Activity {
     public PWORG getVessel() {
         return vessel;
     }
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "employee=" + employee +
+                ", dateFrom=" + dateFrom +
+                ", position=" + position +
+                ", activityCode=" + activityCode +
+                ", planned=" + planned +
+                ", vessel=" + vessel +
+                '}';
+    }
 }

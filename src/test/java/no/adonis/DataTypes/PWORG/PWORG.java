@@ -30,4 +30,14 @@ public class PWORG {
     public int getOrgType() {
         return orgType;
     }
+
+    @Override
+    public String toString() {
+        return "PWORG{" +
+                "name='" + name + '\'' +
+                ", numorgId=" + numorgId +
+                ", orgCode='" + orgCode + '\'' +
+                ", orgType=" + orgType +
+                '}';
+    }
 }

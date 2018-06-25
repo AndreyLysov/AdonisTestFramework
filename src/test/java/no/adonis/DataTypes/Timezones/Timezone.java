@@ -67,4 +67,14 @@ public class Timezone {
 
         return "GMT " + tmp;
     }
+
+    @Override
+    public String toString() {
+        return "Timezone{" +
+                "vessel=" + vessel +
+                ", timezoneOffset=" + timezoneOffset +
+                ", changeDate=" + changeDate +
+                ", changeDateUTC=" + changeDateUTC +
+                '}';
+    }
 }

@@ -1,6 +1,5 @@
 package no.adonis.Steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import no.adonis.DataTypes.Activity.Activity;
@@ -10,30 +9,18 @@ import no.adonis.DataTypes.Timezones.Timezone;
 import no.adonis.DataTypes.UserGroup.UserGroup;
 import no.adonis.DataTypes.UserSettings.UserSettings;
 import no.adonis.DataTypes.Users.Employee;
-import no.adonis.Utils.SQLUtils;
 import no.adonis.DataTypes.Worktypes.Worktype;
 import no.adonis.DataTypes.Worktypes.WorktypesFactory;
+import no.adonis.Utils.SQLUtils;
 
 public class UtilsSteps extends CommonStep {
 
     @Given("^\"([^\"]*)\" is created$")
     public void isCreated(String name) {
-        //Need to think how to remove redundant employees
-//        employees.put(name, EmployeeFactory.getEmployee(name))
 
         Employee employee = employees.get(name);
 
-        log.info(String.format("Inserting into database employee with parameters:\n" +
-                        "pin: %d\n" +
-                        "first name: %s\n" +
-                        "last name: %s\n" +
-                        "birth date: %s\n" +
-                        "employee start date: %s\n" +
-                        "employee end date: %s\n" +
-                        "email: %s",
-                employee.getPin(), employee.getFirstName(), employee.getLastName(),
-                employee.getBirthDate().toDateTimeISO().toString(), employee.getEmployeeStartDate().toDateTimeISO().toString(),
-                employee.getEmployeeEndDate().toDateTimeISO().toString(), employee.getEmail()));
+        log.info("Inserting into database: " + employee.toString());
 
         SQLUtils.createEmployee(employee);
 
@@ -41,15 +28,22 @@ public class UtilsSteps extends CommonStep {
     }
 
     @And("^\"([^\"]*)\" has current \"([^\"]*)\" activity on \"([^\"]*)\" vessel started (\\d+) days ago on \"([^\"]*)\" position$")
-    public void hasCurrentActivityOnVesselStartedDaysAgoOnPosition(String employee, String activityCode, String vessel, int dateFromOffset, String position) {
-        SQLUtils.createActivity(
-                new Activity(
-                        employees.get(employee),
-                        positions.get(position),
-                        activityCodes.get(activityCode),
-                        dateFromOffset,
-                        vessels.get(vessel),
-                        false));
+    public void hasCurrentActivityOnVesselStartedDaysAgoOnPosition(String employee, String activityCode, String vessel,
+                                                                   int dateFromOffset, String position) {
+
+        Activity activity = new Activity(
+                employees.get(employee),
+                positions.get(position),
+                activityCodes.get(activityCode),
+                dateFromOffset,
+                vessels.get(vessel),
+                false);
+
+        log.info("Inserting " + activity.toString());
+
+        SQLUtils.createActivity(activity);
+
+        log.info("The activity was inserted\n");
     }
 
     @And("^\"([^\"]*)\" is on \"([^\"]*)\" timezone from \"([^\"]*)\"$")
@@ -57,11 +51,7 @@ public class UtilsSteps extends CommonStep {
 
         timezones.put(timezone, new Timezone(vessels.get(vessel), timezone, dateFrom));
 
-        log.info(String.format("Inserting into database timezone with parameters:\n" +
-                        "date from: %s\n" +
-                        "timezone: %s\n" +
-                        "on the %s vessel",
-                dateFrom, timezone, vessel));
+        log.info("Inserting into database: " + timezones.get(timezone));
 
         SQLUtils.createTimezone(timezones.get(timezone));
 
@@ -70,17 +60,18 @@ public class UtilsSteps extends CommonStep {
 
     @And("^period started (\\d+) days backward (\\d+) days forward is created on \"([^\"]*)\" vessel$")
     public void periodStartedDaysBackwardDaysForwardIsCreatedOnVessel(int dateFromOffset, int dateToOffset, String vessel) {
-        log.info(String.format("Inserting into database timesheet period with parameters:\n" +
-                        "date from offset: -%d days\n" +
-                        "end date offset: +%d days\n" +
-                        "on the %s vessel\n",
-                dateFromOffset, dateToOffset, vessel));
+
+        TimesheetPeriod tsPeriod = new TimesheetPeriod(
+                dateFromOffset,
+                dateToOffset,
+                vessels.get(vessel));
+
+        log.info("Inserting into database: " + tsPeriod);
+
         SQLUtils.createTimesheetPeriod(
-                new TimesheetPeriod(
-                        dateFromOffset,
-                        dateToOffset,
-                        vessels.get(vessel))
+                tsPeriod
         );
+
         log.info("The period was inserted\n");
     }
 
@@ -91,12 +82,7 @@ public class UtilsSteps extends CommonStep {
 
         worktypes.put(worktype, wt);
 
-        log.info(String.format("Inserting into database worktype with parameters:\n" +
-                        "code: %s\n" +
-                        "name: %s\n" +
-                        "on the %s vessel\n" +
-                        "with options: %s",
-                wt.getCode(), wt.getName(), wt.getVessel().getName(), options));
+        log.info("Inserting into database: " + worktypes.get(worktype)) ;
 
         SQLUtils.createWorktype(worktypes.get(worktype));
 
@@ -105,16 +91,17 @@ public class UtilsSteps extends CommonStep {
 
     @And("^\"([^\"]*)\" role with access to \"([^\"]*)\" modules is created$")
     public void roleWithAccessToModulesIsCreated(String roleName, String modules) {
-        log.info(String.format("Inserting into database role with parameters\n" +
-                        "role name: %s\n" +
-                        "with access to modules: %s",
-                roleName, modules));
 
-        Role role = new Role(roleName);
-        roles.put(roleName, role);
-        SQLUtils.createRole(role);
 
-        SQLUtils.addAccessToModules(role, modules);
+        roles.put(roleName, new Role(roleName));
+
+        log.info("Inseting into database: " + roles.get(roleName));
+
+        SQLUtils.createRole(roles.get(roleName));
+
+        log.info("Linking " + modules + "to the " + roleName);
+
+        SQLUtils.addAccessToModules(roles.get(roleName), modules);
 
         log.info("The role was inserted\n");
     }
@@ -132,8 +119,8 @@ public class UtilsSteps extends CommonStep {
     @And("^\"([^\"]*)\" position is linked to \"([^\"]*)\" user group$")
     public void positionIsLinkedToUserGroup(String position, String userGroup) {
 
-        log.info(String.format("%s position is linking to %s user group\n",
-                position, userGroup));
+        log.info(positions.get(position).toString() + " position is linking to "
+                        + userGroups.get(userGroup) + " user group\n");
 
         SQLUtils.linkPositionToUserGroup(userGroups.get(userGroup), positions.get(position));
 
@@ -145,11 +132,11 @@ public class UtilsSteps extends CommonStep {
         UserGroup ug = new UserGroup(userGroup);
         userGroups.put(userGroup, ug);
 
-        log.info(String.format("Inserting %s user group into database\n", userGroup));
+        log.info("Inserting into database: " + userGroups.get(userGroup).toString());
 
         SQLUtils.createUserGroup(ug);
 
-        log.info("User group is created");
+        log.info("User group was created");
     }
 
     @And("^\"([^\"]*)\" has user settings: workdays: (\\d+); start work hour: (\\d+); end work hour: (\\d+); display work time only: \"([^\"]*)\"; display timeslots: \"([^\"]*)\"$")

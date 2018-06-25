@@ -46,4 +46,15 @@ public class TimesheetPeriod {
     public PWORG getVessel() {
         return vessel;
     }
+
+    @Override
+    public String toString() {
+        return "TimesheetPeriod{" +
+                "period=" + period +
+                ", name='" + name + '\'' +
+                ", dateFrom=" + dateFrom +
+                ", dateTo=" + dateTo +
+                ", vessel=" + vessel +
+                '}';
+    }
 }

@@ -18,4 +18,12 @@ public class UserGroup {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "UserGroup{" +
+                "sequenceno=" + sequenceno +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
