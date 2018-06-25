@@ -20,7 +20,7 @@ public class ACPCurrentTimesheetPage extends ACPMyTimesheetPage implements AddEd
     ElementsCollection timeCells = $$(byXpath("//table[@class='dxscDayScrollBodyTable']//td[@class='dxscTimeCellBody_Metropolis']"));
     SelenideElement itemAddTimeRegistration = $(byId("scTimesheet_viewMenuBlock_SMVIEW_DXI0_"));
     ElementsCollection timeblocksText = $$(byXpath("//div[@class='dxsc-apt-time-container']"));
-    SelenideElement timeblockText = $(byXpath("//div[@class='dxsc-apt-time-container']"));
+    SelenideElement timeblockText = $(byXpath("//div[@class='dxsc-content-wrapper']/span"));
 
     protected void openTimeCellMenu(){
         timeCells.get(0).contextClick();
@@ -46,7 +46,7 @@ public class ACPCurrentTimesheetPage extends ACPMyTimesheetPage implements AddEd
 
     protected void checkIsTimeRegistrationDisplayed(Timeregistration timeregistration){
 
-        log.info("Expected timeregistration:\n" + timeregistration.toString());
+        log.info("Expected timeregistration: " + timeregistration.toString());
 
         timeblockText.shouldHave(Condition.exactText(timeregistration.toString()));
 

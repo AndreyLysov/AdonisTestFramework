@@ -186,6 +186,14 @@ public class SQLUtils {
                 "'C4CA4238A0B923820DCC509A6F75849B', '" +
                 employee.getEmail() + "', " +
                 "GETDATE())");
+
+        executeScript("INSERT INTO PW001P0P (PIN, STARTDATE, PNUMBER, SEQUENCENO, CREATETIME) " +
+                "VALUES (" +
+                employee.getPin() + ", '" +
+                dfOut.print(employee.getEmployeeStartDate()) + "', " +
+                "'A', " +
+                employee.getPin() + ", " +
+                "GETDATE())");
     }
 
     public static HashMap<String, PWORG> getPWORGS() {
@@ -207,6 +215,7 @@ public class SQLUtils {
 
     public static void cleanEmployees() {
         cleanUserSettings();
+        executeScript("DELETE FROM PW001P0P");
         executeScript("DELETE FROM WEB_CP_ACCOUNT WHERE PIN IS NOT NULL");
         executeScript("DELETE FROM PW001P01");
     }
@@ -250,8 +259,10 @@ public class SQLUtils {
         return codes;
     }
 
+    //    PAYSCALETABLE = PSC1; PAYSCALE = PSCODE
     public static void createActivity(Activity activity) {
-        executeScript("INSERT INTO PW001P03 (PIN, CREATEDBY, CREATETIME, SEQUENCENO, CODE, DATEFROM, DATETO, VESSEL, VESSELNAME, RANK, NUMORGID, PLANNED) " +
+        executeScript("INSERT INTO PW001P03 (PIN, CREATEDBY, CREATETIME, SEQUENCENO, CODE, DATEFROM, DATETO, " +
+                "VESSEL, VESSELNAME, RANK, NUMORGID, PLANNED) " +
                 "VALUES ( " +
                 activity.getEmployee().getPin() + ", " +
                 "'ATF', " +
@@ -385,7 +396,7 @@ public class SQLUtils {
         );
     }
 
-    public static void cleanUserSettings(){
+    public static void cleanUserSettings() {
         executeScript("DELETE FROM WEB_CP_USER_SETTINGS");
     }
 }
