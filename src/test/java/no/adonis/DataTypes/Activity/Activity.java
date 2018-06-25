@@ -1,7 +1,7 @@
-package no.adonis.Activity;
+package no.adonis.DataTypes.Activity;
 
-import no.adonis.PWORG.PWORG;
-import no.adonis.Users.Employee;
+import no.adonis.DataTypes.PWORG.PWORG;
+import no.adonis.DataTypes.Users.Employee;
 import org.joda.time.DateTime;
 
 public class Activity {

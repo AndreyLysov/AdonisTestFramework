@@ -1,10 +1,11 @@
-package no.adonis.Timeregistrations;
+package no.adonis.DataTypes.Timeregistrations;
 
-import no.adonis.Timezones.Timezone;
-import no.adonis.Worktypes.Worktype;
+import no.adonis.DataTypes.Timezones.Timezone;
+import no.adonis.DataTypes.Worktypes.Worktype;
 import org.joda.time.DateTime;
-import org.joda.time.Hours;
 import org.joda.time.Minutes;
+
+import static no.adonis.Common.Constants.TF;
 
 public class Timeregistration {
     private DateTime timeIn;
@@ -13,9 +14,9 @@ public class Timeregistration {
     private Worktype worktype;
 
     @Override
+
     public String toString() {
-        return timeIn + " - " + timeOut + " " +
-                Hours.hoursBetween(timeIn, timeOut) + ":" +
+        return TF.print(timeIn) + " - " + TF.print(timeOut) + " " +
                 getDifferenceBetweenDateTimes(timeIn, timeOut) + " hrs; " +
                 worktype.getName() + "; " + timezone.toStringInHours();
     }
@@ -23,13 +24,19 @@ public class Timeregistration {
     public String getDifferenceBetweenDateTimes(DateTime timein, DateTime timeout) {
         Minutes difference = Minutes.minutesBetween(timein, timeout);
         int hours = difference.toStandardHours().getHours();
-        return hours + ":" + (difference.getMinutes()%hours);
+        return hours + ":" + (difference.getMinutes()%hours == 0 ? "00" : difference.getMinutes());
     }
 
-    public Timeregistration(int pin, DateTime timeIn, DateTime timeOut, Timezone timezone, Worktype worktype) {
+    public Timeregistration(DateTime timeIn, DateTime timeOut, Timezone timezone, Worktype worktype) {
         this.timeIn = timeIn;
         this.timeOut = timeOut;
         this.timezone = timezone;
+        this.worktype = worktype;
+    }
+
+    public Timeregistration(DateTime timeIn, DateTime timeOut, Worktype worktype) {
+        this.timeIn = timeIn;
+        this.timeOut = timeOut;
         this.worktype = worktype;
     }
 
@@ -45,7 +52,7 @@ public class Timeregistration {
         return timezone;
     }
 
-    public Worktype getWorktype() {
-        return worktype;
-    }
+    public Worktype getWorktype() { return worktype; }
+
+    public Timezone getTimezone() { return timezone; }
 }

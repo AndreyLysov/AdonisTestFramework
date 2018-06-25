@@ -1,4 +1,4 @@
-package no.adonis.Users;
+package no.adonis.DataTypes.Users;
 
 import org.joda.time.DateTime;
 

@@ -2,7 +2,7 @@ package no.adonis.Pages.ACP.TimeAndAttendance;
 
 import com.codeborne.selenide.SelenideElement;
 import no.adonis.Helpers.ACP.TAA.AddTimeRegistrationImplementations.AddTimeRegistration;
-import no.adonis.Timeregistrations.Timeregistration;
+import no.adonis.DataTypes.Timeregistrations.Timeregistration;
 import org.joda.time.DateTime;
 import org.openqa.selenium.Keys;
 

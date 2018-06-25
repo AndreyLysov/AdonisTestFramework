@@ -1,4 +1,4 @@
-package no.adonis.Role;
+package no.adonis.DataTypes.Role;
 
 public class Role {
     private static int count = 0;

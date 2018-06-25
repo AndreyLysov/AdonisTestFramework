@@ -1,4 +1,4 @@
-package no.adonis.PWORG;
+package no.adonis.DataTypes.PWORG;
 
 public class PWORG {
 

@@ -1,14 +1,16 @@
 package no.adonis.Steps;
 
 import cucumber.api.Scenario;
-import no.adonis.Activity.ActivityCode;
+import no.adonis.DataTypes.Activity.ActivityCode;
 import no.adonis.Helpers.APP;
-import no.adonis.PWORG.PWORG;
-import no.adonis.Role.Role;
-import no.adonis.Users.Employee;
-import no.adonis.Users.EmployeeFactory;
-import no.adonis.Utils.ExcelUtils;
+import no.adonis.DataTypes.PWORG.PWORG;
+import no.adonis.DataTypes.Role.Role;
+import no.adonis.DataTypes.Timezones.Timezone;
+import no.adonis.DataTypes.UserGroup.UserGroup;
+import no.adonis.DataTypes.Users.Employee;
+import no.adonis.DataTypes.Users.EmployeeFactory;
 import no.adonis.Utils.SQLUtils;
+import no.adonis.DataTypes.Worktypes.Worktype;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
@@ -20,33 +22,33 @@ public class CommonStep {
 
     protected Scenario myScenario;
     protected Logger log;
-    protected Map<String, Employee> employees;
-    private Map<String, PWORG> pworgs;
-    protected Map<String, PWORG> vessels;
-    protected Map<String, PWORG> departments;
-    protected Map<String, PWORG> positions;
-    protected Map<String, ActivityCode> activityCodes;
-    protected Map<String, Role> roles;
+    protected static Map<String, Employee> employees = EmployeeFactory.getEmployees();
+    private static Map<String, PWORG> pworgs = SQLUtils.getPWORGS();;
+    protected static Map<String, Worktype> worktypes = new HashMap<>();
+    protected static Map<String, Timezone> timezones = new HashMap<>();
+
+    protected static Map<String, PWORG> vessels = pworgs.entrySet()
+            .stream()
+            .filter(s -> s.getValue().getOrgType() == 3)
+            .collect(Collectors.toMap(s -> s.getKey(), s -> s.getValue()));
+
+    protected static Map<String, PWORG> departments = pworgs.entrySet()
+            .stream()
+            .filter(s -> s.getValue().getOrgType() == 4)
+            .collect(Collectors.toMap(s -> s.getKey(), s -> s.getValue()));
+
+    protected static Map<String, PWORG> positions = pworgs.entrySet()
+            .stream()
+            .filter(s -> s.getValue().getOrgType() == 5)
+            .collect(Collectors.toMap(s -> s.getKey(), s -> s.getValue()));;
+
+    protected static Map<String, ActivityCode> activityCodes = SQLUtils.getActivityCodes();;
+    protected static Map<String, Role> roles = new HashMap<>();;
+    protected static Map<String, UserGroup> userGroups = new HashMap<>();;
 
     public CommonStep() {
         app = new APP();
-        roles = new HashMap<>();
-        employees = EmployeeFactory.getEmployees();
         log = Logger.getLogger(this.getClass().getSimpleName());
-        pworgs = SQLUtils.getPWORGS();
-        vessels = pworgs.entrySet()
-                .stream()
-                .filter(s -> s.getValue().getOrgType() == 3)
-                .collect(Collectors.toMap(s -> s.getKey(), s -> s.getValue()));
-        departments = pworgs.entrySet()
-                .stream()
-                .filter(s -> s.getValue().getOrgType() == 4)
-                .collect(Collectors.toMap(s -> s.getKey(), s -> s.getValue()));
-        positions = pworgs.entrySet()
-                .stream()
-                .filter(s -> s.getValue().getOrgType() == 5)
-                .collect(Collectors.toMap(s -> s.getKey(), s -> s.getValue()));
-        activityCodes = SQLUtils.getActivityCodes();
     }
 
 

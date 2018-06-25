@@ -7,6 +7,7 @@ import static com.codeborne.selenide.Selectors.byId;
 import static com.codeborne.selenide.Selenide.$;
 
 public class ACPStartPage extends ACPLoggedUserPage {
+
     SelenideElement tileMyPersonalDetails = $(byId("divTilePersonalDetails"));
     SelenideElement tileMyFlights = $(byId("divTileFlightDetails"));
     SelenideElement tileDayToDay = $(byId("divTileDayToDay"));

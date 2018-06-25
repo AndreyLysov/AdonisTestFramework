@@ -1,6 +1,6 @@
-package no.adonis.Worktypes;
+package no.adonis.DataTypes.Worktypes;
 
-import no.adonis.PWORG.PWORG;
+import no.adonis.DataTypes.PWORG.PWORG;
 
 public class Worktype {
     private String code;

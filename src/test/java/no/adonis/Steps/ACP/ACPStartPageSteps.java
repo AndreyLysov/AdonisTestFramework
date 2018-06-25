@@ -10,7 +10,9 @@ public class ACPStartPageSteps extends CommonStep {
 
     @And("^\"([^\"]*)\" page is opened$")
     public void pageIsOpened(String page) {
-        app.acpStart.openMyTimesheetPage(page);
+//        app.acpStart.openMyTimesheetPage(page);
+        app.acpStart.openMyTimesheetPage();
+        app.acpTAA.openMyTimesheetsPage();
     }
 }
 

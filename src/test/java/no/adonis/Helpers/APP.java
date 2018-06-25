@@ -9,6 +9,7 @@ import no.adonis.Helpers.ACP.TAA.ACPTimeAndAttendancePageHelper;
 public class APP {
 
     public BaseHelper base;
+    public ClientHelper client;
 
     //Administrator helpers
     public AAPLoginHelper aapLogin;
@@ -21,6 +22,7 @@ public class APP {
 
     public APP() {
         base = new BaseHelper();
+        client = new ClientHelper();
         aapLogin = new AAPLoginHelper();
         acpLogin = new ACPLoginHelper();
         acpStart = new ACPStartHelper();

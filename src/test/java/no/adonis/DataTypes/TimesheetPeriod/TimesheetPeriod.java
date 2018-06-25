@@ -1,6 +1,6 @@
-package no.adonis.TimesheetPeriod;
+package no.adonis.DataTypes.TimesheetPeriod;
 
-import no.adonis.PWORG.PWORG;
+import no.adonis.DataTypes.PWORG.PWORG;
 import org.joda.time.DateTime;
 
 public class TimesheetPeriod {

@@ -1,6 +1,6 @@
-package no.adonis.Timezones;
+package no.adonis.DataTypes.Timezones;
 
-import no.adonis.PWORG.PWORG;
+import no.adonis.DataTypes.PWORG.PWORG;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
@@ -11,8 +11,6 @@ public class Timezone {
     private int timezoneOffset;
     private DateTime changeDate;
     private static org.joda.time.format.DateTimeFormatter df = DateTimeFormat.forPattern("yyyy-MM-dd");
-
-
 
     private DateTime changeDateUTC;
 
@@ -58,13 +56,14 @@ public class Timezone {
 
     public String toStringInHours() {
         String tmp;
+        int minutes = Math.abs(timezoneOffset) % 60;
 
         if (timezoneOffset == 0)
             tmp = "0:00";
         else if (timezoneOffset > 0)
             tmp = "+" + (timezoneOffset / 60) + ":" + (timezoneOffset % 60);
         else
-            tmp = (timezoneOffset / 60) + ":" + (Math.abs(timezoneOffset) % 60);
+            tmp = (timezoneOffset / 60) + ":" + (minutes == 0 ? "00" : minutes);
 
         return "GMT " + tmp;
     }

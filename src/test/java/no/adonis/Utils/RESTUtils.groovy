@@ -3,8 +3,8 @@ package no.adonis.Utils
 import groovyx.net.http.HTTPBuilder
 import net.sf.json.JSON
 import no.adonis.Common.Constants
-import no.adonis.Timeregistrations.Timeregistration
-import no.adonis.Users.Employee
+import no.adonis.DataTypes.Timeregistrations.Timeregistration
+import no.adonis.DataTypes.Users.Employee
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter
 

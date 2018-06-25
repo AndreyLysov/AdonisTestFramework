@@ -25,10 +25,15 @@ public class Hooks extends CommonStep {
 
             prop.setProperty("date", SQLUtils.getDateTimeFormat());
 
-            SQLUtils.cleanRoleAccess();
+            SQLUtils.cleanTimeregistrations();
+            SQLUtils.cleanLinkBetweenUserGroupAndRole();
+            SQLUtils.cleanUserGroups();
             SQLUtils.cleanRoles();
             SQLUtils.cleanTimezones();
             SQLUtils.cleanTimesheetPeriods();
+            SQLUtils.cleanTimesheets();
+            SQLUtils.cleanDocuments();
+            SQLUtils.cleanDocumentsWorkflow();
             SQLUtils.cleanActivities();
             SQLUtils.cleanEmployees();
             SQLUtils.cleanWorktypes();
@@ -75,7 +80,7 @@ public class Hooks extends CommonStep {
 //        app.common.appTakeScreenshot(myScenario);
         log.info("----------------------------------------------");
         log.info("*****************SCENARIO END*************************\n\n");
-        app.base.appStop();
+        app.base.stopApp();
     }
 }
 

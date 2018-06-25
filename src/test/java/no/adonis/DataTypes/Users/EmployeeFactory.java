@@ -1,4 +1,4 @@
-package no.adonis.Users;
+package no.adonis.DataTypes.Users;
 
 import no.adonis.Utils.ExcelUtils;
 import org.joda.time.DateTime;

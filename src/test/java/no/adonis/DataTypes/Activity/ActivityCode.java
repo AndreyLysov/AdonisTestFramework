@@ -1,4 +1,4 @@
-package no.adonis.Activity;
+package no.adonis.DataTypes.Activity;
 
 public class ActivityCode {
     private String name;

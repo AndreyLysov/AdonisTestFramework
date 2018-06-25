@@ -4,8 +4,14 @@ import no.adonis.Pages.ACP.ACPStartPage;
 
 public class ACPStartHelper extends ACPStartPage {
 
+    public void openMyTimesheetPage(){
+        moveToTimeAndAttendance();
+    }
+
     public void openMyTimesheetPage(String page) {
+
         log.info("Opening '" + page + "' page");
+
         if (page.equals("My Timesheet")) {
             moveToCurrentTimesheetUsingNavigationPanel();
         } else if (page.equals("Day To Day"))

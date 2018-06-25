@@ -1,14 +1,15 @@
 package no.adonis.Utils;
 
-import no.adonis.Activity.Activity;
-import no.adonis.Activity.ActivityCode;
+import no.adonis.DataTypes.Activity.Activity;
+import no.adonis.DataTypes.Activity.ActivityCode;
 import no.adonis.Common.Constants;
-import no.adonis.PWORG.PWORG;
-import no.adonis.Role.Role;
-import no.adonis.TimesheetPeriod.TimesheetPeriod;
-import no.adonis.Timezones.Timezone;
-import no.adonis.Users.Employee;
-import no.adonis.Worktypes.Worktype;
+import no.adonis.DataTypes.PWORG.PWORG;
+import no.adonis.DataTypes.Role.Role;
+import no.adonis.DataTypes.TimesheetPeriod.TimesheetPeriod;
+import no.adonis.DataTypes.Timezones.Timezone;
+import no.adonis.DataTypes.UserGroup.UserGroup;
+import no.adonis.DataTypes.Users.Employee;
+import no.adonis.DataTypes.Worktypes.Worktype;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -120,6 +121,16 @@ public class SQLUtils {
             return DateTimeFormat.shortDateTime().toString();
         else
             return String.valueOf(result.getValueAt(0, 0));
+    }
+
+    public static String getTimeFormat(){
+        TableModel tm = getFromDB("SELECT case when (select top 1 value from web_cp_settings2 where code = 'udf') = 'False' " +
+                "then (select top 1 value from web_cp_settings2 where code = 'stf') else NULL end as 'Time'");
+        if (tm == null) {
+            return DateTimeFormat.shortTime().toString();
+        } else {
+            return String.valueOf(tm.getValueAt(0,0));
+        }
     }
 
     /*
@@ -303,6 +314,7 @@ public class SQLUtils {
     }
 
     public static void cleanRoles() {
+        executeScript("DELETE FROM WEB_CP_ROLE_ACCESS");
         executeScript("DELETE FROM WEB_CP_ROLES");
     }
 
@@ -329,7 +341,32 @@ public class SQLUtils {
         }
     }
 
-    public static void cleanRoleAccess(){
-        executeScript("DELETE FROM WEB_CP_ROLE_ACCESS");
+    public static void createUserGroup(UserGroup ug){
+        executeScript("INSERT INTO WEB_CP_USERGROUP (USERGROUPID, CAPTION) VALUES (" +
+                ug.getSequenceno() + ", '" +
+                ug.getName() + "')");
     }
+
+    public static void linkPositionToUserGroup(UserGroup ug, PWORG position){
+        executeScript("INSERT INTO WEB_CP_USERGROUP_POSITION (USERGROUPID, POSITION_NUMORGID) VALUES (" +
+                ug.getSequenceno() + ", " +
+                position.getNumorgId() + ")");
+    }
+
+    public static void cleanUserGroups(){
+        executeScript("DELETE FROM WEB_CP_USERGROUP_POSITION");
+        executeScript("DELETE FROM WEB_CP_USERGROUP");
+    }
+
+    public static void linkUserGroupToRole(UserGroup ug, Role role){
+        executeScript("INSERT INTO WEB_CP_USERGROUP_ROLE (ROLE_ID, USERGROUPID, PARENT_USERGROUPID) VALUES (" +
+                role.getSequenceno() + ", " +
+                ug.getSequenceno() + ", " +
+                "0)");
+    }
+
+    public static void cleanLinkBetweenUserGroupAndRole(){
+        executeScript("DELETE FROM WEB_CP_USERGROUP_ROLE");
+    }
+
 }
