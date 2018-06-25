@@ -15,7 +15,7 @@ import static com.codeborne.selenide.Selectors.byId;
 import static com.codeborne.selenide.Selenide.$$;
 import static no.adonis.Common.Constants.DTF;
 
-public class ACPCurrentTimesheetPage extends ACPMyTimesheetPage implements AddEditTimeRegistrationForm {
+public class ACPCurrentTimesheetPage extends ACPMyTimesheetPage implements AddEditTimeRegistrationForm{
     SelenideElement ddlDayCount = $(byId("cbDayCount_I"));
     ElementsCollection timeCells = $$(byXpath("//table[@class='dxscDayScrollBodyTable']//td[@class='dxscTimeCellBody_Metropolis']"));
     SelenideElement itemAddTimeRegistration = $(byId("scTimesheet_viewMenuBlock_SMVIEW_DXI0_"));
@@ -28,30 +28,16 @@ public class ACPCurrentTimesheetPage extends ACPMyTimesheetPage implements AddEd
 
     protected void clickAddEditTimeRegistration(){
         try {
-            Thread.sleep(200);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         itemAddTimeRegistration.click();
     }
 
-    @Override
-    public void fillInDateTime(SelenideElement dateTimeField, DateTime time) {
-        dateTimeField.click();
-        dateTimeField.sendKeys(Keys.END);
-        for (int i = 0; i< 20; i++)
-            dateTimeField.sendKeys(Keys.BACK_SPACE);
-        dateTimeField.sendKeys(DTF.print(time));
-    }
-
     protected void checkIsTimeRegistrationDisplayed(Timeregistration timeregistration){
-
-        log.info("Expected timeregistration: " + timeregistration.toString());
-
         timeblockText.shouldHave(Condition.exactText(timeregistration.toString()));
-
     }
-
 
     //Need to implement this for moving top and bottom borders of time registration
     /*

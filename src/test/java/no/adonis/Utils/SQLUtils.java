@@ -134,34 +134,6 @@ public class SQLUtils {
         }
     }
 
-    /*
-    public static HashMap<String, Worktype> getWorktypes() {
-        HashMap<String, Worktype> worktypes = new HashMap<>();
-        TableModel table = getFromDB("select NAME, NUMORGID, IS_WORK, IS_DRILL, " +
-                "IS_REST, IS_MEAL, IS_SICK, IS_SIDE_DUTY, IS_WORKANDREST, " +
-                "HideInTimeClock, HideInManual, NonOT from WEB_CP_WORKTYPES");
-        for (int i = 1; i < table.getRowCount(); i++) {
-            worktypes.put(String.valueOf(table.getValueAt(i, 0)),
-                    new Worktype(
-                            String.valueOf(table.getValueAt(i, 0)),
-                            Integer.getInteger(String.valueOf(table.getValueAt(i, 1))),
-                            Boolean.valueOf(String.valueOf(table.getValueAt(i, 2))),
-                            Boolean.valueOf(String.valueOf(table.getValueAt(i, 3))),
-                            Boolean.valueOf(String.valueOf(table.getValueAt(i, 4))),
-                            Boolean.valueOf(String.valueOf(table.getValueAt(i, 5))),
-                            Boolean.valueOf(String.valueOf(table.getValueAt(i, 6))),
-                            Boolean.valueOf(String.valueOf(table.getValueAt(i, 7))),
-                            Boolean.valueOf(String.valueOf(table.getValueAt(i, 8))),
-                            Boolean.valueOf(String.valueOf(table.getValueAt(i, 9))),
-                            Boolean.valueOf(String.valueOf(table.getValueAt(i, 10))),
-                            Boolean.valueOf(String.valueOf(table.getValueAt(i, 11)))
-                    )
-            );
-        }
-        return worktypes;
-    }
-    */
-
     public static void createEmployee(Employee employee) {
         executeScript("INSERT INTO PW001P01 (FIRSTNAME, LASTNAME, PIN, EMPLOYMENTSTARTDATE, BIRTHDATE, " +
                 "CREATEDBY, CREATETIME, SEQUENCENO) VALUES ('" +

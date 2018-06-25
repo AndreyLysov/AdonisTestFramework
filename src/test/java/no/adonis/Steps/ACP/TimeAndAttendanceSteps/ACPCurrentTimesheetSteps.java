@@ -34,7 +34,7 @@ public class ACPCurrentTimesheetSteps extends CommonStep {
                 yesterday.withHourOfDay(timeout).withMinuteOfHour(0),
                 worktypes.get(worktype));
 
-        app.acpCurrentTS.createTimeRegistration(tr);
+        app.acpCurrentTS.createTimeregistration(tr);
     }
 
     @Then("^time registration with time in (\\d+) hours, time out (\\d+) hours, \"([^\"]*)\" work type and \"([^\"]*)\" timezone for yesterday is displayed$")
