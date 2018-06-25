@@ -2,6 +2,7 @@ Feature: As a Crew Member I want to register and adjust my work time so I can I 
 
   Background:
     Given "Bart Simpson" is created
+    And "Bart Simpson" has user settings: workdays: 7; start work hour: 9; end work hour: 18; display work time only: "no"; display timeslots: "yes"
     And "Bart Simpson" has current "Onboard" activity on "Black Pearl" vessel started 20 days ago on "Seaman" position
     And period started 10 days backward 20 days forward is created on "Black Pearl" vessel
     And "Crew" role with access to "My time sheets;Time and attendance;Overview;Current;" modules is created

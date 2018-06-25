@@ -1,5 +1,6 @@
 package no.adonis.Pages.ACP.TimeAndAttendance;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import no.adonis.DataTypes.Timeregistrations.Timeregistration;
@@ -46,15 +47,8 @@ public class ACPCurrentTimesheetPage extends ACPMyTimesheetPage implements AddEd
     protected void checkIsTimeRegistrationDisplayed(Timeregistration timeregistration){
 
         log.info("Expected timeregistration:\n" + timeregistration.toString());
-        log.info("Timeregistration text from page:\n" + timeblockText.text());
 
-        Assert.assertTrue(String.format("time registration with time in %s, " +
-                        "time out %s, work type %s and timezone offset %d is not displayed",
-                timeregistration.getTimeIn().toDateTimeISO().toString(),
-                timeregistration.getTimeOut().toDateTimeISO().toString(),
-                timeregistration.getWorktype().getName(),
-                timeregistration.getTimezone().getTimezoneOffset()),
-                timeblockText.equals(timeregistration.toString()));
+        timeblockText.shouldHave(Condition.exactText(timeregistration.toString()));
 
     }
 

@@ -1,5 +1,6 @@
 package no.adonis.Steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import no.adonis.DataTypes.Activity.Activity;
@@ -7,12 +8,13 @@ import no.adonis.DataTypes.Role.Role;
 import no.adonis.DataTypes.TimesheetPeriod.TimesheetPeriod;
 import no.adonis.DataTypes.Timezones.Timezone;
 import no.adonis.DataTypes.UserGroup.UserGroup;
+import no.adonis.DataTypes.UserSettings.UserSettings;
 import no.adonis.DataTypes.Users.Employee;
 import no.adonis.Utils.SQLUtils;
 import no.adonis.DataTypes.Worktypes.Worktype;
 import no.adonis.DataTypes.Worktypes.WorktypesFactory;
 
-public class UtilsSteps extends CommonStep{
+public class UtilsSteps extends CommonStep {
 
     @Given("^\"([^\"]*)\" is created$")
     public void isCreated(String name) {
@@ -57,7 +59,7 @@ public class UtilsSteps extends CommonStep{
 
         log.info(String.format("Inserting into database timezone with parameters:\n" +
                         "date from: %s\n" +
-                        "timezone: %s\n"+
+                        "timezone: %s\n" +
                         "on the %s vessel",
                 dateFrom, timezone, vessel));
 
@@ -148,5 +150,29 @@ public class UtilsSteps extends CommonStep{
         SQLUtils.createUserGroup(ug);
 
         log.info("User group is created");
+    }
+
+    @And("^\"([^\"]*)\" has user settings: workdays: (\\d+); start work hour: (\\d+); end work hour: (\\d+); display work time only: \"([^\"]*)\"; display timeslots: \"([^\"]*)\"$")
+    public void hasUserSettingsWorkdaysStartWorkHourEndWorkHourDisplayWorkTimeOnlyDisplayTimeslots(String employee,
+                                                                                                   int workDays,
+                                                                                                   int startWorkHour,
+                                                                                                   int endWorkHour,
+                                                                                                   String displayWorkTime,
+                                                                                                   String displayTimeslots) {
+        UserSettings userSettings = new UserSettings(
+                employees.get(employee),
+                workDays == 5,
+                startWorkHour,
+                endWorkHour,
+                displayWorkTime.equals("yes"),
+                displayTimeslots.equals("yes")
+        );
+
+        log.info("Inserting user settings into database:\n" +
+                userSettings.toString());
+
+        SQLUtils.setUserSettings(userSettings);
+
+        log.info("User settings were inserted");
     }
 }

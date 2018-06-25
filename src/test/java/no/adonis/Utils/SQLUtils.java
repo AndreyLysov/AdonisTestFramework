@@ -8,6 +8,7 @@ import no.adonis.DataTypes.Role.Role;
 import no.adonis.DataTypes.TimesheetPeriod.TimesheetPeriod;
 import no.adonis.DataTypes.Timezones.Timezone;
 import no.adonis.DataTypes.UserGroup.UserGroup;
+import no.adonis.DataTypes.UserSettings.UserSettings;
 import no.adonis.DataTypes.Users.Employee;
 import no.adonis.DataTypes.Worktypes.Worktype;
 import org.joda.time.DateTime;
@@ -123,13 +124,13 @@ public class SQLUtils {
             return String.valueOf(result.getValueAt(0, 0));
     }
 
-    public static String getTimeFormat(){
+    public static String getTimeFormat() {
         TableModel tm = getFromDB("SELECT case when (select top 1 value from web_cp_settings2 where code = 'udf') = 'False' " +
                 "then (select top 1 value from web_cp_settings2 where code = 'stf') else NULL end as 'Time'");
         if (tm == null) {
             return DateTimeFormat.shortTime().toString();
         } else {
-            return String.valueOf(tm.getValueAt(0,0));
+            return String.valueOf(tm.getValueAt(0, 0));
         }
     }
 
@@ -205,6 +206,7 @@ public class SQLUtils {
     }
 
     public static void cleanEmployees() {
+        cleanUserSettings();
         executeScript("DELETE FROM WEB_CP_ACCOUNT WHERE PIN IS NOT NULL");
         executeScript("DELETE FROM PW001P01");
     }
@@ -327,8 +329,8 @@ public class SQLUtils {
         TableModel table = getFromDB("SELECT ELEMENT_ID FROM WEB_CP_ELEMENTS WHERE CAPTION IN (" + joiner + ")");
 
         ArrayList<Integer> moduleNumbers = new ArrayList<>();
-        for (int i = 0; i < table.getRowCount(); i++){
-            moduleNumbers.add(Integer.parseInt(String.valueOf(table.getValueAt(i,0))));
+        for (int i = 0; i < table.getRowCount(); i++) {
+            moduleNumbers.add(Integer.parseInt(String.valueOf(table.getValueAt(i, 0))));
         }
 
         for (Integer module :
@@ -341,32 +343,49 @@ public class SQLUtils {
         }
     }
 
-    public static void createUserGroup(UserGroup ug){
+    public static void createUserGroup(UserGroup ug) {
         executeScript("INSERT INTO WEB_CP_USERGROUP (USERGROUPID, CAPTION) VALUES (" +
                 ug.getSequenceno() + ", '" +
                 ug.getName() + "')");
     }
 
-    public static void linkPositionToUserGroup(UserGroup ug, PWORG position){
+    public static void linkPositionToUserGroup(UserGroup ug, PWORG position) {
         executeScript("INSERT INTO WEB_CP_USERGROUP_POSITION (USERGROUPID, POSITION_NUMORGID) VALUES (" +
                 ug.getSequenceno() + ", " +
                 position.getNumorgId() + ")");
     }
 
-    public static void cleanUserGroups(){
+    public static void cleanUserGroups() {
         executeScript("DELETE FROM WEB_CP_USERGROUP_POSITION");
         executeScript("DELETE FROM WEB_CP_USERGROUP");
     }
 
-    public static void linkUserGroupToRole(UserGroup ug, Role role){
+    public static void linkUserGroupToRole(UserGroup ug, Role role) {
         executeScript("INSERT INTO WEB_CP_USERGROUP_ROLE (ROLE_ID, USERGROUPID, PARENT_USERGROUPID) VALUES (" +
                 role.getSequenceno() + ", " +
                 ug.getSequenceno() + ", " +
                 "0)");
     }
 
-    public static void cleanLinkBetweenUserGroupAndRole(){
+    public static void cleanLinkBetweenUserGroupAndRole() {
         executeScript("DELETE FROM WEB_CP_USERGROUP_ROLE");
     }
 
+    public static void setUserSettings(UserSettings userSettings) {
+        executeScript("INSERT INTO WEB_CP_USER_SETTINGS (PIN, TAA_WORKDAYS, TAA_WORKSTART, TAA_WORKEND, " +
+                "TAA_WORKTIME_ONLY, TAA_TIMESLOTS_ONLY) " +
+                "VALUES (" +
+                userSettings.getEmployee().getPin() + ", " +
+                (userSettings.isWorkDaysIs5() ? 5 : 7) + ", " +
+                userSettings.getStartWorkHour() + ", " +
+                userSettings.getEndWorkHour() + ", " +
+                (userSettings.isDisplayWorktimeOnly() ? 1 : 0) + ", " +
+                (userSettings.isDisplayTimeslots() ? 1 : 0) +
+                ")"
+        );
+    }
+
+    public static void cleanUserSettings(){
+        executeScript("DELETE FROM WEB_CP_USER_SETTINGS");
+    }
 }
