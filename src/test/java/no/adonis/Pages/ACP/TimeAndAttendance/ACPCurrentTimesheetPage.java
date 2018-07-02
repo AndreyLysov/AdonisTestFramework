@@ -16,6 +16,7 @@ import static com.codeborne.selenide.Selenide.$$;
 import static no.adonis.Common.Constants.DTF;
 
 public class ACPCurrentTimesheetPage extends ACPMyTimesheetPage implements AddEditTimeRegistrationForm{
+
     SelenideElement ddlDayCount = $(byId("cbDayCount_I"));
     ElementsCollection timeCells = $$(byXpath("//table[@class='dxscDayScrollBodyTable']//td[@class='dxscTimeCellBody_Metropolis']"));
     SelenideElement itemAddTimeRegistration = $(byId("scTimesheet_viewMenuBlock_SMVIEW_DXI0_"));

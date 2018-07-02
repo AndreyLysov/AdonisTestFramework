@@ -11,4 +11,5 @@ public class Constants {
     public static final String CONNECTION_STRING = "jdbc:sqlserver://192.168.1.202;instanceName=SQL2016DEV;databaseName=AdonisAutoTest;user=sa;password=SUPER";
     public static final DateTimeFormatter DTF = DateTimeFormat.forPattern(SQLUtils.getDateTimeFormat());
     public static final DateTimeFormatter TF = DateTimeFormat.forPattern(SQLUtils.getTimeFormat());
+    public static final DateTimeFormatter DF = DateTimeFormat.forPattern(SQLUtils.getDateFormat());
 }

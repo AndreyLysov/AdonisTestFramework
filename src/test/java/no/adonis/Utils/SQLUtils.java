@@ -134,6 +134,16 @@ public class SQLUtils {
         }
     }
 
+    public static String getDateFormat() {
+        TableModel tm = getFromDB("SELECT case when (select top 1 value from web_cp_settings2 where code = 'udf') = 'False' " +
+                "then (select top 1 value from web_cp_settings2 where code = 'SDF') else NULL end as 'Date'");
+        if (tm == null) {
+            return DateTimeFormat.shortDate().toString();
+        } else {
+            return String.valueOf(tm.getValueAt(0, 0));
+        }
+    }
+
     public static void createEmployee(Employee employee) {
         executeScript("INSERT INTO PW001P01 (FIRSTNAME, LASTNAME, PIN, EMPLOYMENTSTARTDATE, BIRTHDATE, " +
                 "CREATEDBY, CREATETIME, SEQUENCENO) VALUES ('" +

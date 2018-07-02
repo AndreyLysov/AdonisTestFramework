@@ -1,4 +1,7 @@
-Feature: As a Crew Member I want to register and adjust my work time so I can I can account to a manager.
+Feature:
+  As a Crew Member
+  I want to register work time
+  so that I can add timeregistrations
 
   Background:
     Given "Bart Simpson" is created
@@ -10,7 +13,16 @@ Feature: As a Crew Member I want to register and adjust my work time so I can I 
     And "Seaman" position is linked to "Crew group" user group
     And "Crew group" user group linked to "Crew" role
 
-  Scenario: Add time registration
+  Scenario: Add time registration from current timesheet page
+    And "Black Pearl" is on "-1" timezone from "2018-01-01"
+    And worktype "Work" is exist on the "Black Pearl" vessel with "isWork;isWorkAndRest" options
+    And "ACP" is opened
+    And "Bart Simpson" is logged in
+    And "My Timesheet" page is opened
+    When create time registration with timein 10 hours and time out 16 hours and "Work" work type in "-1" timezone for yesterday
+    Then time registration with time in 10 hours, time out 16 hours, "Work" work type and "-1" timezone for yesterday is displayed
+
+  Scenario: Add time registration into created current timesheet
     And "Black Pearl" is on "-1" timezone from "2018-01-01"
     And worktype "Work" is exist on the "Black Pearl" vessel with "isWork;isWorkAndRest" options
     And "ACP" is opened

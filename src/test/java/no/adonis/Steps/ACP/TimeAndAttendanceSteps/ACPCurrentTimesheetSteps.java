@@ -1,14 +1,14 @@
 package no.adonis.Steps.ACP.TimeAndAttendanceSteps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import no.adonis.Steps.CommonStep;
 import no.adonis.DataTypes.Timeregistrations.Timeregistration;
+import no.adonis.Steps.CommonStep;
 import org.joda.time.DateTime;
 
 public class ACPCurrentTimesheetSteps extends CommonStep {
+
     @And("^open add edit time registration form$")
     public void openAddEditTimeRegistrationForm() {
         log.info("Opening 'Add/Edit time registration' form");
